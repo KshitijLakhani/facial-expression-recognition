@@ -114,4 +114,3 @@ model.fit_generator(datagen.flow(Train_x, Train_y,
                     nb_epoch=nb_epoch,
                     validation_data=(Val_x, Val_y),
                     callbacks=[checkpointer])
-
