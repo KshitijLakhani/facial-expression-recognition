@@ -171,13 +171,17 @@ def load_data():
     val_x = []
     val_y = []
 
-    with open("badtrainingdata.txt", "r") as text:
+    bad_training_path = 'badtrainingdata.txt'
+    data_path = 'data/fer2013.csv'
+    curr_path = os.path.dirname(__file__)
+
+    with open(os.path.abspath(os.path.join(curr_path, bad_training_path)), "r") as text:
         ToBeRemovedTrainingData = []
         for line in text:
             ToBeRemovedTrainingData.append(int(line))
     number = 0
 
-    f = open()
+    f = open(os.path.abspath(os.path.join(curr_path, '..', data_path)))
     csv_f = csv.reader(f)
 
     for row in csv_f:   
