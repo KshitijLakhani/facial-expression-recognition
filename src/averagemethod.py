@@ -1,21 +1,12 @@
 from __future__ import print_function
-import cv2
-import PIL
-from PIL import Image
 import keras
 from keras.models import Sequential
 from keras.layers import Dense, Dropout, Activation, Flatten
 from keras.layers import Convolution2D, MaxPooling2D
 from keras.optimizers import Adadelta
-from keras.utils import np_utils
-from keras.regularizers import l2  # , activity_l2
 import numpy as np
-import _pickle as cPickle
 import numpy
-import cv2
-import scipy
-import csv
-import dataprocessing
+from src import dataprocessing
 
 
 def model_generate():

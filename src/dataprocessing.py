@@ -14,6 +14,7 @@ import scipy
 from scipy import ndimage
 import imutils
 import cv2
+import os
 import numpy as np
 from keras.preprocessing.image import ImageDataGenerator
 
@@ -151,13 +152,13 @@ def Zerocenter_ZCA_whitening_Global_Contrast_Normalize(list):
 def load_test_data():
     f = open('fer2013.csv')
     csv_f = csv.reader(f)
-    test_set_x =[]
-    test_set_y =[]
+    test_set_x = []
+    test_set_y = []
     for row in csv_f:  
         if str(row[2]) == "PrivateTest" :
             test_set_y.append(int(row[0]))
             temp_list = []
-            for pixel in row[1].split( ):
+            for pixel in row[1].split():
                 temp_list.append(int(pixel))
             data = Zerocenter_ZCA_whitening_Global_Contrast_Normalize(temp_list)
             test_set_x.append(data)
@@ -176,7 +177,7 @@ def load_data():
             ToBeRemovedTrainingData.append(int(line))
     number = 0
 
-    f = open('/home/fitrialif/PHDFitri/dataset/FER2013/fer2013.csv')
+    f = open()
     csv_f = csv.reader(f)
 
     for row in csv_f:   
@@ -204,3 +205,7 @@ def load_data():
                 val_x.append(data.reshape(2304).tolist())
 
     return train_x, train_y, val_x, val_y
+
+
+if __name__ == "__main__":
+    x, y, vx, vy = load_data()
