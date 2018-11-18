@@ -165,11 +165,10 @@ def load_test_data():
 
 
 def load_data():
-
     train_x = []
     train_y = []
-    val_x =[]
-    val_y =[]
+    val_x = []
+    val_y = []
 
     with open("badtrainingdata.txt", "r") as text:
         ToBeRemovedTrainingData = []
