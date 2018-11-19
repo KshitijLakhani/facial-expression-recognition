@@ -17,7 +17,7 @@ def model_generate():
                             input_shape=(img_rows, img_cols,1)))
     model.add(keras.layers.advanced_activations.PReLU(init='zero', weights=None))
     model.add(keras.layers.convolutional.ZeroPadding2D(padding=(2, 2), dim_ordering='tf'))
-    model.add(MaxPooling2D(pool_size=(5, 5),strides=(2, 2)))
+    model.add(MaxPooling2D(pool_size=(5, 5), strides=(2, 2)))
       
     model.add(keras.layers.convolutional.ZeroPadding2D(padding=(1, 1), dim_ordering='tf')) 
     model.add(Convolution2D(64, 3, 3))
@@ -45,10 +45,8 @@ def model_generate():
     model.add(keras.layers.advanced_activations.PReLU(init='zero', weights=None))
     model.add(Dropout(0.2))
      
-      
     model.add(Dense(7))
-      
-      
+
     model.add(Activation('softmax'))
 
     ada = Adadelta(lr=0.1, rho=0.95, epsilon=1e-08)
@@ -57,6 +55,8 @@ def model_generate():
                   metrics=['accuracy'])
     model.summary()
     return model
+
+
 img_rows, img_cols = 48, 48
 batch_size = 128
 nb_classes = 7
@@ -85,7 +85,8 @@ Val_y = np_utils.to_categorical(Val_y, nb_classes)
 model = model_generate()
 
 filepath='Model.{epoch:02d}-{val_acc:.4f}.hdf5'
-checkpointer = keras.callbacks.ModelCheckpoint(filepath, monitor='val_loss', verbose=1, save_best_only=False, mode='auto')
+checkpointer = keras.callbacks.ModelCheckpoint(filepath, monitor='val_loss', verbose=1, save_best_only=False,
+                                               mode='auto')
 
 datagen = ImageDataGenerator(
     featurewise_center=False,  # set input mean to 0 over the dataset

@@ -1,22 +1,22 @@
 from __future__ import print_function
-import keras
-from keras.models import Sequential
-from keras.layers import Dense, Dropout, Activation, Flatten
-from keras.layers import Convolution2D, MaxPooling2D
-from keras.optimizers import Adadelta
-from keras.utils import np_utils
-from keras.regularizers import l2  #, activity_l2
-import _pickle as cPickle
 import numpy
 import csv
 import scipy.misc
 import scipy
-from scipy import ndimage
 import imutils
 import cv2
 import os
 import numpy as np
-from keras.preprocessing.image import ImageDataGenerator
+# import keras
+# from keras.models import Sequential
+# from keras.layers import Dense, Dropout, Activation, Flatten
+# from keras.layers import Convolution2D, MaxPooling2D
+# from keras.optimizers import Adadelta
+# from keras.utils import np_utils
+# from keras.regularizers import l2  #, activity_l2
+# from keras.preprocessing.image import ImageDataGenerator
+# import _pickle as cPickle
+# from scipy import ndimage
 
 
 def flatten_matrix(matrix):
@@ -191,7 +191,7 @@ def load_data():
             if str(row[2]) == "Training" or str(row[2]) == "PublicTest" :
                 temp_list = []
 
-                for pixel in row[1].split( ):
+                for pixel in row[1].split():
                     temp_list.append(int(pixel))
 
                 data = Zerocenter_ZCA_whitening_Global_Contrast_Normalize(temp_list)
@@ -208,8 +208,13 @@ def load_data():
                 val_y.append(int(row[0]))
                 val_x.append(data.reshape(2304).tolist())
 
+        # print("train_x is {} ".format(train_x))
+        # print("train_y is {} ".format(train_y))
+        # print("val_x is {} ".format(val_x))
+        # print("val_y is {} ".format(val_y))
+
     return train_x, train_y, val_x, val_y
 
-
-if __name__ == "__main__":
-    x, y, vx, vy = load_data()
+#
+# if __name__ == "__main__":
+#     x, y, vx, vy = load_data()
