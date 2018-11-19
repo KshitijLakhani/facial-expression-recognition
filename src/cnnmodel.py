@@ -14,7 +14,7 @@ def model_generate():
     img_rows, img_cols = 48, 48
     model = Sequential()
     model.add(Convolution2D(64, 5, 5, border_mode='valid',
-                            input_shape=(img_rows, img_cols,1)))
+                            input_shape=(img_rows, img_cols, 1)))
     model.add(keras.layers.advanced_activations.PReLU(init='zero', weights=None))
     model.add(keras.layers.convolutional.ZeroPadding2D(padding=(2, 2), dim_ordering='tf'))
     model.add(MaxPooling2D(pool_size=(5, 5), strides=(2, 2)))
@@ -63,24 +63,23 @@ nb_classes = 7
 nb_epoch = 1200
 img_channels = 1
 
-Train_x, Train_y, Val_x, Val_y = dataprocessing.load_data()
+Train_x, Train_y, Val_x, Val_y = dataprocessing.load_data()  # Get the training values from here
 
-Train_x = numpy.asarray(Train_x) 
-Train_x = Train_x.reshape(Train_x.shape[0],img_rows,img_cols)
+Train_x = numpy.asarray(Train_x)  # Convert train_x to numpy array
+Train_x = Train_x.reshape(Train_x.shape[0], img_rows, img_cols)  # Convert train_x to an array of 48*48 pixels
 
 Val_x = numpy.asarray(Val_x)
-Val_x = Val_x.reshape(Val_x.shape[0],img_rows,img_cols)
+Val_x = Val_x.reshape(Val_x.shape[0], img_rows, img_cols)
 
-Train_x = Train_x.reshape(Train_x.shape[0], img_rows, img_cols,1)
-Val_x = Val_x.reshape(Val_x.shape[0], img_rows, img_cols,1)
+Train_x = Train_x.reshape(Train_x.shape[0], img_rows, img_cols, 1)
+Val_x = Val_x.reshape(Val_x.shape[0], img_rows, img_cols, 1)
 
-Train_x = Train_x.astype('float32')
+Train_x = Train_x.astype('float32')  # Copy of the array; cast to float32
 Val_x = Val_x.astype('float32')
 
-
-Train_y = np_utils.to_categorical(Train_y, nb_classes)
+Train_y = np_utils.to_categorical(Train_y, nb_classes)  # Convert class vector (integers from 0 to nb_classes)
+# to binary class matrix, for use with categorical_crossentropy.
 Val_y = np_utils.to_categorical(Val_y, nb_classes)
-
 
 model = model_generate()
 
@@ -88,6 +87,7 @@ filepath='Model.{epoch:02d}-{val_acc:.4f}.hdf5'
 checkpointer = keras.callbacks.ModelCheckpoint(filepath, monitor='val_loss', verbose=1, save_best_only=False,
                                                mode='auto')
 
+# Generate batches of tensor image data with real-time data augmentation. The data will be looped over (in batches).
 datagen = ImageDataGenerator(
     featurewise_center=False,  # set input mean to 0 over the dataset
     samplewise_center=False,  # set each sample mean to 0
