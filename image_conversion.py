@@ -13,6 +13,7 @@ emotion_mappings = {'angry': '0',
                     'surprise': '5',
                     'neutral': '6'}
 to_write = list()
+to_write.append(["emotion", "pixels", "Usage"])
 
 for subdir, dirs, files in os.walk(photos_base_path):
     for file in files:
