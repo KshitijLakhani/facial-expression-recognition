@@ -17,7 +17,6 @@ to_write.append(["emotion", "pixels", "Usage"])
 
 for subdir, dirs, files in os.walk(photos_base_path):
     for file in files:
-        final_list = list()
         curr_emotion = emotion_mappings[str(file.split('-')[0])]
         im = Image.open(os.path.join(subdir, file)).convert('L')
         pixels = list(im.getdata())
@@ -25,10 +24,7 @@ for subdir, dirs, files in os.walk(photos_base_path):
         pixels = [pixels[i * width:(i + 1) * width] for i in range(height)]
         pixels = np.asarray(pixels).flatten().tolist()
         img_str = ' '.join(map(str, pixels))
-        final_list.append(curr_emotion)
-        final_list.append(img_str)
-        final_list.append(data_kind)
-        to_write.append(final_list)
+        to_write.append([curr_emotion, img_str, data_kind])
 
 with open("test_data.csv", 'w') as outfile:
     writer = csv.writer(outfile)
