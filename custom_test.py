@@ -52,8 +52,8 @@ N, D = X.shape
 X = X.reshape(N, 48, 48, 1)
 
 # Split in  training set : validation set :  testing set in 80:10:10
-X_train, X_test, y_train, y_test = train_test_split(X, Y, test_size=0.1, random_state=0)
-y_train = (np.arange(num_class) == y_train[:, None]).astype(np.float32)
+X_train, X_test, y_train, y_test = train_test_split(X, Y, test_size=1.0, random_state=0)
+# y_train = (np.arange(num_class) == y_train[:, None]).astype(np.float32)
 y_test = (np.arange(num_class) == y_test[:, None]).astype(np.float32)
 
 batch_size = 128
