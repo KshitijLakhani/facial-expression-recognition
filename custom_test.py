@@ -52,46 +52,15 @@ N, D = X.shape
 X = X.reshape(N, 48, 48, 1)
 
 # Split in  training set : validation set :  testing set in 80:10:10
-X_train, X_test, y_train, y_test = train_test_split(X, Y, test_size=1.0, random_state=0)
+# X_train, X_test, y_train, y_test = train_test_split(X, Y, test_size=1.0, random_state=0)
 # y_train = (np.arange(num_class) == y_train[:, None]).astype(np.float32)
-y_test = (np.arange(num_class) == y_test[:, None]).astype(np.float32)
+# y_test = (np.arange(num_class) == y_test[:, None]).astype(np.float32)
+
+X_test = list(X)
+y_test = list(Y)
 
 batch_size = 128
 epochs = 15
-
-
-# Shallow CNN model with two Convolution layer & one fully connected layer
-def baseline_model():
-    # Initialising the CNN
-    model = Sequential()
-
-    # 1 - Convolution
-    model.add(Conv2D(64,(3,3), border_mode='same', input_shape=(48, 48,1)))
-    model.add(BatchNormalization())
-    model.add(Activation('relu'))
-    model.add(MaxPooling2D(pool_size=(2, 2)))
-    model.add(Dropout(0.25))
-
-    # 2nd Convolution layer
-    model.add(Conv2D(128,(5,5), border_mode='same'))
-    model.add(BatchNormalization())
-    model.add(Activation('relu'))
-    model.add(MaxPooling2D(pool_size=(2, 2)))
-    model.add(Dropout(0.25))
-
-    # Flattening
-    model.add(Flatten())
-
-    # Fully connected layer 1st layer
-    model.add(Dense(256))
-    model.add(BatchNormalization())
-    model.add(Activation('relu'))
-    model.add(Dropout(0.25))
-
-    model.add(Dense(num_class, activation='sigmoid'))
-
-    model.compile(optimizer='adam', loss='binary_crossentropy', metrics=[categorical_accuracy])
-    return model
 
 
 def baseline_model_saved():
