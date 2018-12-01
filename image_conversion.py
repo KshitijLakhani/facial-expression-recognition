@@ -13,7 +13,7 @@ emotion_mappings = {'angry': '0',
                     'surprise': '5',
                     'neutral': '6'}
 to_write = list()
-to_write.append(["emotion", "pixels", "Usage"])
+to_write.append(["pixels", "Usage"])
 
 for subdir, dirs, files in os.walk(photos_base_path):
     for file in files:
@@ -24,7 +24,7 @@ for subdir, dirs, files in os.walk(photos_base_path):
         pixels = [pixels[i * width:(i + 1) * width] for i in range(height)]
         pixels = np.asarray(pixels).flatten().tolist()
         img_str = ' '.join(map(str, pixels))
-        to_write.append([curr_emotion, img_str, data_kind])
+        to_write.append([img_str, data_kind])
 
 with open("test_data.csv", 'w') as outfile:
     writer = csv.writer(outfile)
