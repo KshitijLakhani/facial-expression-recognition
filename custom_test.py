@@ -41,8 +41,7 @@ X = X.reshape(N, 48, 48, 1)
 # y_train = (np.arange(num_class) == y_train[:, None]).astype(np.float32)
 # y_test = (np.arange(num_class) == y_test[:, None]).astype(np.float32)
 
-X_test = list(X)
-
+print(X.shape)
 
 def baseline_model_saved():
     # load json and create model
@@ -60,7 +59,7 @@ print("Load model from disk")
 model = baseline_model_saved()
 
 # Model will predict the probability values for 7 labels for a test image
-score = model.predict(X_test)
+score = model.predict(X)
 print(model.summary())
 
 new_X = [np.argmax(item) for item in score]
