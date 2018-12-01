@@ -17,8 +17,6 @@ label_map = ['Anger', 'Disgust', 'Fear', 'Happy', 'Sad', 'Surprise', 'Neutral']
 
 def getData(filename):
     # images are 48x48
-    # N = 35887
-    Y = []
     X = []
     first = True
     for line in open(filename):
@@ -26,26 +24,13 @@ def getData(filename):
             first = False
         else:
             row = line.split(',')
-            Y.append(int(row[0]))
-            X.append([int(p) for p in row[1].split()])
-    X, Y = np.array(X) / 255.0, np.array(Y)
-    return X, Y
+            X.append([int(p) for p in row[0].split()])
+    X = np.array(X) / 255.0
+    return X
 
 
-X, Y = getData(filename)
-num_class = len(set(Y))
+X = getData(filename)
 
-
-# To see number of training data point available for each label
-def balance_class(Y):
-    num_class = set(Y)
-    count_class = {}
-    for i in range(len(num_class)):
-        count_class[i] = sum([1 for y in Y if y == i])
-    return count_class
-
-
-balance = balance_class(Y)
 
 # Keras with Tensorflow backend
 N, D = X.shape
@@ -57,10 +42,6 @@ X = X.reshape(N, 48, 48, 1)
 # y_test = (np.arange(num_class) == y_test[:, None]).astype(np.float32)
 
 X_test = list(X)
-y_test = list(Y)
-
-batch_size = 128
-epochs = 15
 
 
 def baseline_model_saved():
@@ -83,8 +64,9 @@ score = model.predict(X_test)
 print(model.summary())
 
 new_X = [np.argmax(item) for item in score]
-y_test2 = [np.argmax(item) for item in y_test]
+print(new_X)
+# y_test2 = [np.argmax(item) for item in y_test]
 
 # Calculating categorical accuracy taking label having highest probability
-accuracy = [(x == y) for x, y in zip(new_X, y_test2)]
-print("Accuracy on Test set : ", np.mean(accuracy))
+# accuracy = [(x == y) for x, y in zip(new_X, y_test2)]
+# print("Accuracy on Test set : ", np.mean(accuracy))
