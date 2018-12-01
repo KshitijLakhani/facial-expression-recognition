@@ -36,11 +36,6 @@ X = getData(filename)
 N, D = X.shape
 X = X.reshape(N, 48, 48, 1)
 
-# Split in  training set : validation set :  testing set in 80:10:10
-# X_train, X_test, y_train, y_test = train_test_split(X, Y, test_size=1.0, random_state=0)
-# y_train = (np.arange(num_class) == y_train[:, None]).astype(np.float32)
-# y_test = (np.arange(num_class) == y_test[:, None]).astype(np.float32)
-
 print(X.shape)
 
 def baseline_model_saved():
@@ -63,9 +58,5 @@ score = model.predict(X)
 print(model.summary())
 
 new_X = [np.argmax(item) for item in score]
-print(new_X)
-# y_test2 = [np.argmax(item) for item in y_test]
+print("The predicted values are {}".format(new_X))
 
-# Calculating categorical accuracy taking label having highest probability
-# accuracy = [(x == y) for x, y in zip(new_X, y_test2)]
-# print("Accuracy on Test set : ", np.mean(accuracy))
